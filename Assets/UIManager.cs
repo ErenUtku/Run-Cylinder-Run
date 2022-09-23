@@ -31,19 +31,19 @@ public class UIManager : MonoBehaviour
         FailUIActivation(false);
     }
 
-    public void ChangeLevelCount(string value)
+    public void ChangeLevelCount(int value)
     {
-        levelCountTxt.text = value;
+        levelCountTxt.text = ("Level" + " " + value);
     }
 
-    public void ChangeScore(string value)
+    public void ChangeScore(int value)
     {
-        scoreTxt.text = value;
+        scoreTxt.text = ("Score" + " : " + value);
     }
 
-    public void ChangeAttemptCount(string value)
+    public void ChangeAttemptCount(int value)
     {
-        attemptTxt.text = value;
+        attemptTxt.text = ("Attempt Count" + " : " + value);
     }
     public void ChangePushedObjectCount(int value)
     {

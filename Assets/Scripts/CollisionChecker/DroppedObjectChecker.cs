@@ -26,6 +26,7 @@ namespace CollisionChecker
             if (other.gameObject.CompareTag("Player"))
             {
                 _uiManager.FailUIActivation(true);
+                scoreCalculator.IncreaseAttemptCount();
                 Time.timeScale = 0;
                 Debug.Log("Game is Over");
             }
