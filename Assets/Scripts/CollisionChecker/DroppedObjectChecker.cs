@@ -6,8 +6,9 @@ namespace CollisionChecker
 {
     public class DroppedObjectChecker : MonoBehaviour
     {
+        [SerializeField] private ObjectSpawner objectSpawner;
         [SerializeField] private ScoreCalculator scoreCalculator;
-
+        private OBJECTTYPE objectType;
         private UIManager _uiManager;
         private void Start()
         {
@@ -18,9 +19,7 @@ namespace CollisionChecker
         {
             if (other.gameObject.CompareTag("Collectable"))
             {
-                Destroy(other.gameObject);
-                scoreCalculator.IncreaseTotalPush();
-                Debug.Log("Collected");
+                CollectObject(other);
             }
 
             if (other.gameObject.CompareTag("Player"))
@@ -30,6 +29,21 @@ namespace CollisionChecker
                 Time.timeScale = 0;
                 Debug.Log("Game is Over");
             }
+        }
+
+        public void CollectObject(Collider other)
+        {
+            Destroy(other.gameObject);
+
+            var data = other.GetComponent<CollectableObject>().objectData;
+
+            scoreCalculator.IncreaseScore(data);
+            scoreCalculator.IncreaseTotalPush();
+
+            objectType = OBJECTTYPE.COLLECTABLE;
+            objectSpawner.InstantiateObject(objectType, scoreCalculator.ReturnCurrentData());
+
+            Debug.Log("Collected");
         }
     }
 }

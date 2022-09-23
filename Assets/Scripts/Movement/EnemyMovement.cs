@@ -6,13 +6,13 @@ namespace Movement
 {
     public class EnemyMovement : MonoBehaviour
     {
-        public Transform targetPlayer;
-
+        private Transform targetPlayer;
         private NavMeshAgent navMeshAgent;
 
         private void Start()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
+            targetPlayer = FindObjectOfType<PlayerMovementController>().transform;
         }
 
         private void Update()
