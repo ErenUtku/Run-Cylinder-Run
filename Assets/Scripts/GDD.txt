@@ -1,6 +1,6 @@
 •	Please create 3D Test Project and implement the game. (DONE)
 
-•	The main player is Cylinder, which collects other models in the play zone.
+•	The main player is Cylinder, which collects other models in the play zone(Done)
 
 •	The Cube can move by A, W, S, and D keys.(DONE)
 
