@@ -60,8 +60,9 @@ public class ObjectSpawner : MonoBehaviour
 
             if (type == OBJECTTYPE.ENEMY)
             {
-                objectScale = ((leveldata.level) / 5);
-                spawnObject.transform.localScale += new Vector3(objectScale, objectScale, objectScale);
+                objectScale = ((float)(leveldata.level) / 5f);
+                var objectScaleVector = new Vector3(objectScale, objectScale, objectScale);
+                spawnObject.gameObject.transform.localScale += objectScaleVector;
             }
 
             if (type == OBJECTTYPE.COLLECTABLE)

@@ -24,6 +24,7 @@ public class ScoreCalculator : MonoBehaviour
         _uiManager.ChangeAttemptCount(levelStorage.levelData.attemptCount);
         _uiManager.ChangeScore(totalScore);
         _uiManager.ChangeLevelCount(levelStorage.levelData.level);
+        _uiManager.ChangeHighScore(levelStorage.levelData.highScore);
     }
 
     public void IncreaseTotalPush()
@@ -65,8 +66,18 @@ public class ScoreCalculator : MonoBehaviour
             objectSpawner.InstantiateObject(objectType, levelStorage.levelData);
         }
 
+        levelStorage.levelData.currentScore += totalScore;
+        if (totalScore >= levelStorage.levelData.highScore)
+        {
+            levelStorage.levelData.highScore = totalScore;
+            _uiManager.ChangeHighScore(totalScore);
+        } 
+        
         _uiManager.ChangeScore(totalScore);
         _uiManager.ChangeLevelCount(levelStorage.levelData.level);
+        _uiManager.ChangeMultiplierCount(multiplierData, multiplierValue);
+        
+        levelStorage.SaveData();
     }
 
     public LevelData ReturnCurrentData()

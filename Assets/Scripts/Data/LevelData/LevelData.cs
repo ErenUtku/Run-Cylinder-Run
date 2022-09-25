@@ -9,5 +9,7 @@ namespace Data
         public int level;
         public int attemptCount;
         public int totalPush;
+        public int currentScore;
+        public int highScore;
     }
 }
