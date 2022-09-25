@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Movement;
+using Spawn;
+
 namespace CollisionChecker
 {
     public class PlayerCollision : MonoBehaviour

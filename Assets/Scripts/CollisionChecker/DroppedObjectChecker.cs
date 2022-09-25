@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Collectables;
+using Spawn;
+using UI;
+using Data;
+
 namespace CollisionChecker
 {
     public class DroppedObjectChecker : MonoBehaviour
@@ -9,25 +14,25 @@ namespace CollisionChecker
         [SerializeField] private ObjectSpawner objectSpawner;
         [SerializeField] private ScoreCalculator scoreCalculator;
         [SerializeField] private CollectableObjectsList collectableList;
+        
         private OBJECTTYPE objectType;
-        private UIManager _uiManager;
+        private UIManager uiManager;
+        
         private void Start()
         {
             Time.timeScale = 1;
-            _uiManager = UIManager.instance;
+            uiManager = UIManager.instance;
         }
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Collectable"))
             {
-               
-
                 CollectObject(other);
             }
 
             if (other.gameObject.CompareTag("Player"))
             {
-                _uiManager.FailUIActivation(true);
+                uiManager.FailUIActivation(true);
                 scoreCalculator.IncreaseAttemptCount();
                 Time.timeScale = 0;
                 Debug.Log("Game is Over");
