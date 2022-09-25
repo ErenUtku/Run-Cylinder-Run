@@ -9,8 +9,11 @@ public class ScoreCalculator : MonoBehaviour
     private OBJECTTYPE objectType;
 
     public int totalScore;
+
     private int levelUpScore;//per 100 score ++
-    private int levelCount;
+
+    private CollectablesData multiplierData;
+    private int multiplierValue=1;
 
     private UIManager _uiManager;
     private void Start()
@@ -20,6 +23,7 @@ public class ScoreCalculator : MonoBehaviour
         _uiManager.ChangePushedObjectCount(levelStorage.levelData.totalPush);
         _uiManager.ChangeAttemptCount(levelStorage.levelData.attemptCount);
         _uiManager.ChangeScore(totalScore);
+        _uiManager.ChangeLevelCount(levelStorage.levelData.level);
     }
 
     public void IncreaseTotalPush()
@@ -38,18 +42,31 @@ public class ScoreCalculator : MonoBehaviour
 
     public void IncreaseScore(CollectablesData data)
     {
-        var addScore = ((levelStorage.levelData.level-1)*10 + data.score);
+        if(multiplierData==null || data != multiplierData)
+        {
+            multiplierData = data;
+            multiplierValue = 1;
+        }
+        else
+        {
+            multiplierValue++;
+        }
+
+        var addScore = ((levelStorage.levelData.level-1) * 10 + data.score * multiplierValue);
         totalScore += addScore;
         levelUpScore += addScore;
+
         if (levelUpScore >= 100)
-        {
-            levelCount++;
+        {      
             levelUpScore = levelUpScore - 100;
             objectType = OBJECTTYPE.ENEMY;
+
+            levelStorage.levelData.level++;
             objectSpawner.InstantiateObject(objectType, levelStorage.levelData);
         }
+
         _uiManager.ChangeScore(totalScore);
-        _uiManager.ChangeLevelCount(levelCount);
+        _uiManager.ChangeLevelCount(levelStorage.levelData.level);
     }
 
     public LevelData ReturnCurrentData()

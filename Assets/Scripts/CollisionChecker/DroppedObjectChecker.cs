@@ -8,6 +8,7 @@ namespace CollisionChecker
     {
         [SerializeField] private ObjectSpawner objectSpawner;
         [SerializeField] private ScoreCalculator scoreCalculator;
+        [SerializeField] private CollectableObjectsList collectableList;
         private OBJECTTYPE objectType;
         private UIManager _uiManager;
         private void Start()
@@ -19,6 +20,8 @@ namespace CollisionChecker
         {
             if (other.gameObject.CompareTag("Collectable"))
             {
+               
+
                 CollectObject(other);
             }
 
@@ -33,17 +36,24 @@ namespace CollisionChecker
 
         public void CollectObject(Collider other)
         {
+            if (collectableList.totalObjectsCount != 0)
+            {
+                collectableList.totalObjectsCount--;
+
+            }
+
             Destroy(other.gameObject);
-
             var data = other.GetComponent<CollectableObject>().objectData;
-
             scoreCalculator.IncreaseScore(data);
             scoreCalculator.IncreaseTotalPush();
-
             objectType = OBJECTTYPE.COLLECTABLE;
-            objectSpawner.InstantiateObject(objectType, scoreCalculator.ReturnCurrentData());
-
             Debug.Log("Collected");
+
+            if (collectableList.totalObjectsCount == 0)
+            {
+                objectSpawner.InstantiateObject(objectType, scoreCalculator.ReturnCurrentData());
+                
+            }
         }
     }
 }

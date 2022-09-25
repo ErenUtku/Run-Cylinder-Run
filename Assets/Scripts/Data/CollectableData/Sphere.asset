@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sphere
   m_EditorClassIdentifier: 
   dataName: 0
-  score: 1
+  score: 25

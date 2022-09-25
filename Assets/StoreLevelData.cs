@@ -18,6 +18,7 @@ public class StoreLevelData : MonoBehaviour
 
     public void SaveData()
     {
+        //DO no update Level Count
         var jsonString = JsonConvert.SerializeObject(levelData);
         //Debug.Log(jsonString);
         PlayerPrefs.SetString("Save Data", jsonString);
@@ -42,6 +43,12 @@ public class StoreLevelData : MonoBehaviour
         Debug.Log(jsonString);
         levelData = null;
         levelData = data;
+
+        ResetLevel();
     }
 
+    private void ResetLevel()
+    {
+        levelData.level = 1;
+    }
 }
